@@ -12,6 +12,8 @@ public class TheaterTest {
         testTheater.newMovieReview("Interstellar", "Garhett", "Amazing Movie", 5);
         testTheater.newMovieReview("Tulip", "Brittany", "Movie rocked my socks", 3);
 
-        System.out.println(testTheater.getListOfReviews().get(1).getListOfReviews().get(0).movie);
+        System.out.println(testTheater.getListOfReviews().get(0).listOfReviews.get(0).stars);
+        System.out.println(testTheater.getListOfReviews().get(0).listOfReviews.get(1).stars);
+        System.out.println(testTheater.getListOfReviews().get(0).avgStars);
     }
 }

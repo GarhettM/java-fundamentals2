@@ -12,6 +12,33 @@ public class Theater implements MovieReviewable{
         this.priceCat = priceCat;
     }
 
+    @Override
+    public void newMovieReview(String movie, String revAuthor, String body, int stars) {
+
+        MovieReview newMovRev = new MovieReview(movie, revAuthor, body, stars);
+        for (MovieClass listOfReview : listOfReviews) {
+            if (listOfReview.getName().equals(newMovRev.getMovie())) {
+                updateStars(listOfReview, stars);
+                listOfReview.getListOfReviews().add(newMovRev);
+                return;
+            }
+        }
+        MovieClass newMovie = new MovieClass(movie);
+        newMovie.getListOfReviews().add(newMovRev);
+        updateStars(newMovie, stars);
+        listOfReviews.add(newMovie);
+    }
+
+    public void updateStars(MovieClass movie, int stars) {
+        movie.sumOfStars += stars;
+        movie.numOfReviews++;
+        movie.avgStars = this.avgStars(movie.sumOfStars, movie.numOfReviews);
+    }
+
+    public double avgStars(int sum, int num) {
+        double k = (double)sum / (double)num;
+        return k;
+    }
 
     public String getName() {
         return name;
@@ -31,21 +58,6 @@ public class Theater implements MovieReviewable{
 
     public ArrayList<MovieClass> getListOfReviews() {
         return listOfReviews;
-    }
-
-    @Override
-    public void newMovieReview(String movie, String revAuthor, String body, int stars) {
-
-        MovieReview newMovRev = new MovieReview(movie, revAuthor, body, stars);
-        for (MovieClass listOfReview : listOfReviews) {
-            if (listOfReview.getName().equals(newMovRev.getMovie())) {
-                listOfReview.getListOfReviews().add(newMovRev);
-                return;
-            }
-        }
-        MovieClass newMovie = new MovieClass(movie);
-        newMovie.getListOfReviews().add(newMovRev);
-        listOfReviews.add(newMovie);
     }
 
     @Override
